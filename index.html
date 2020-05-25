@@ -13,7 +13,7 @@
 		
 		
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" type="text/css">
-		<link rel="stylesheet" href="style.css?111" type="text/css" />
+		<link rel="stylesheet" href="style.css?121" type="text/css" />
 		
 		<script  src="vendor/jquery-3.3.1.min.js"></script>
 		<script  src="vendor/jquery.qrcode.min.js"></script>
@@ -26,9 +26,9 @@
 		
 		
 		
-		<script type="text/javascript" src="js/config.js?110"></script>
-		<script type="text/javascript" src="js/chainactions.js?112"></script>
-		<script type="text/javascript" src="js/app.js?114"></script>
+		<script type="text/javascript" src="js/config.js?121"></script>
+		<script type="text/javascript" src="js/chainactions.js?121"></script>
+		<script type="text/javascript" src="js/app.js?121"></script>
 
 	</head>
 	<body>
@@ -146,12 +146,34 @@
 		<!-- Home Content -->
 		<div id="HomePage" >
 			<div class="container" >
+			
+			   <div class="card border-0 shadow my-5" style="background-color: #fff">
+				<div class="card-body p-5">
+						<h1 class="font-weight-light">My Certificates</h1>
+						<BR>
+						<div class="bg-warning" id="HomePage_MyCerts_pending">
+							<h3>Pending claim Certificates</h3>
+							<div id="HomePage_MyCerts_pending_data">
+								<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
+							</div>
+						</div>
+						
+						<div id="HomePage_MyCerts">
+							
+							<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
+
+						</div>
+						<center><button class="btn btn-lg btn-primary" type="button" id="HomePage_MyCerts_more" value="" >Load More</button></center>
+				</div>
+			  </div>
+			  
+			
+			
 			  <div class="card border-0 shadow my-5" style="background-color: #fff">
 				<div class="card-body p-5">
 
 						<h1 class="font-weight-light">FAQ</h1>
 						<BR>
-						
 						
 						<!-- FAQ ---->
 									
@@ -195,26 +217,7 @@
 				</div>
 			  </div>
 			  
-			   <div class="card border-0 shadow my-5" style="background-color: #fff">
-				<div class="card-body p-5">
 
-						<h1 class="font-weight-light">My Certificates</h1>
-						<BR>
-						<div class="bg-warning" id="HomePage_MyCerts_pending">
-							<h3>Pending claim Certificates</h3>
-							<div id="HomePage_MyCerts_pending_data">
-								<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
-							</div>
-						</div>
-						
-						<div id="HomePage_MyCerts">
-							
-							<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
-
-						</div>
-						<center><button class="btn btn-lg btn-primary" type="button" id="HomePage_MyCerts_more" value="" >Load More</button></center>
-				</div>
-			  </div>
 			  
 			</div>
 		</div>

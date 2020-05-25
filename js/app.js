@@ -187,7 +187,7 @@ async function HomePage(){
 	} else {
 		$("#HomePage_MyCerts").html("Please log in"); 
 		$("#HomePage_MyCerts_pending_data").html(" ");
-		
+		$("#HomePage_MyCerts_more").hide();
 	}
 	
 	
