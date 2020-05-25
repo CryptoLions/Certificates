@@ -10,7 +10,19 @@
 //*  WEB: http://simpleassets.io
 //*
 //*****************************************************************/
+function processError(error_){
 
+	var error = JSON.parse(error_);
+	console.error(error);
+
+	var errmsg = ""
+	if (error.message)
+	    errmsg = error.message
+	if (error.error.details[0].message)
+	    errmsg = error.error.details[0].message;
+	
+	showErrorMessage(errmsg, "topErrorMessage");
+}
 
 function regIssuer(){
 	//console.log("OK");
@@ -23,8 +35,7 @@ function regIssuer(){
 			//console.log("OK");
 			ProcessLocation();
 		}).catch(function(error) {
-			console.error(error);
-			showErrorMessage(error.message, "topErrorMessage");
+			processError(error);
 		});
 	});
 
@@ -40,8 +51,7 @@ function updIssuer(){
 		contractr.authorupdate(account.name, JSON.stringify(data), "{}", "{}", { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
 			ProcessLocation();
 		}).catch(function(error) {
-			console.error(error);
-			showErrorMessage(error.message, "topErrorMessage");
+		    processError(error);
 		});
 	});
 
@@ -56,8 +66,7 @@ function rmIssuer(){
 			//console.log("OK");
 			ProcessLocation();
 		}).catch(function(error) {
-			console.error(error);
-			showErrorMessage(error.message, "topErrorMessage");
+		    processError(error);
 		});
 	});
 
@@ -66,9 +75,9 @@ function rmIssuer(){
 
 function issueCertificate(){
 
-	var data = issueCertificate_validate(false)
+	var data = issueCertificate_validate(false);
 	
-	if ( !data ) return;
+	if ( !data ) return false;
 	
 	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
 		contractr.createntt(account.name, data.category, data.owner, JSON.stringify(data.idata), JSON.stringify(data.mdata), data.requireClaim, { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
@@ -91,14 +100,13 @@ function issueCertificate(){
 			
 			//ProcessLocation();
 		}).catch(function(error) {
-			console.error(error);
-			showErrorMessage(error.message, "topErrorMessage");
+		    processError(error);
 		});
 	});
-	//console.log(data);
 	return false;
 	
 }
+
 
 
 function claimCertificate_action(){
@@ -111,8 +119,7 @@ function claimCertificate_action(){
 			ProcessLocation();
 			//window.location = "#home"
 		}).catch(function(error) {
-			console.error(error);
-			showErrorMessage(error.message, "topErrorMessage");
+		    processError(error);
 		});
 	});
 }
@@ -202,7 +209,7 @@ function issueCertificate_validate(dataValidationOnly){
 		
 		
 		data.owner = $("#inp_issueCert_owner").val();
-		if ( data.owner != data.owner.replace(/[^a-z1-5.]/g,'') || data.owner.length > 12 || data.owner < 2){
+		if ( data.owner != data.owner.replace(/[^a-z1-5.]/g,'') || data.owner.length > 12 || data.owner.length < 2){
 			isValid = false;
 			setFeedBack("inp_issueCert_owner", "Wrong account name (a-z.1-5  max 12)", 1)	
 		} else {
