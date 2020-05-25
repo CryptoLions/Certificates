@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,user-scalable=no" />
+		<meta name="description" content="Simple tool to issue manage and claim certificates — non-transferable tokens (NTT) designed by CryptoLions powered by SimpleAssets.">
+		<meta name="author" content="CryptoLions.io">
+		<link rel="icon" href="images/favicon.png">
+	
+		<title>Certificates HUB (powered by SimpleAssets)</title>
+		
+		
+		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" type="text/css">
+		<link rel="stylesheet" href="style.css?111" type="text/css" />
+		
+		<script  src="vendor/jquery-3.3.1.min.js"></script>
+		<script  src="vendor/jquery.qrcode.min.js"></script>
+		
+		<script  src="vendor/eos.min.js"></script>
+        <script src="vendor/scatterjs-core.min.js"></script>
+		<script src="vendor/scatterjs-plugin-eosjs.min.js"></script>
+
+		<script  src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		
+		
+		
+		<script type="text/javascript" src="js/config.js?110"></script>
+		<script type="text/javascript" src="js/chainactions.js?110"></script>
+		<script type="text/javascript" src="js/app.js?110"></script>
+
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-xl sticky-top navbar-dark bg-dark ">
+			<a class="navbar-brand" href="#"><img width="32px" src="images/logo_128.png" alt="Certificates HUB" title="Certificates HUB"  />  Certificates HUB </a> <span style="width: 50px"></span>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cnavbar" aria-controls="cnavbar" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="cnavbar">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active" id="nav_home">
+						<a class="nav-link " href="#home">Home </a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link"  id="nav_regIssuer" href="#regIssuer">Register as issuer</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link"  id="nav_issueCert" href="#certIssue">Issue certificate</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link"  id="nav_searchCert" href="#certSearch">Search certificate</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="nav-link disabled" id="nav_mngCerts"  href="#">Manage certificate</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled"  id="nav_template" href="#">Create template</a>
+					</li>
+
+				</ul>
+				
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Jungle
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="#">Jungle</a>
+						<a class="dropdown-item disabled" href="#">WAX</a>
+						<a class="dropdown-item disabled" href="#">EOS</a>
+						<a class="dropdown-item disabled" href="#">XEC</a>
+						<a class="dropdown-item disabled" href="#">PROTON</a>
+						<a class="dropdown-item disabled" href="#">TELOS</a>
+						<a class="dropdown-item disabled" href="#">MEETONE</a>
+						</div>
+					</li>
+	  
+					<li class="nav-item active">
+						<a class="nav-link" id="btn_login" href="#">Login </span></a>
+					</li>
+					
+					
+					<span class="navbar-text" id="username">Username,</span>
+					<li class="nav-item">
+						<a class="nav-link" id="btn_logout" href="#">Logout </span></a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+	
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+		 
+				<div class="alert alert-danger fixed-top" id="topErrorMessage" role="alert">
+					This is a danger alert—check it out!
+				</div>		
+				<!-- top_vid -->
+				
+						<div id="TopText">
+							<BR>
+							<h1><img width="64px" src="images/logo_128.png" alt="Certificates HUB" title="Certificates HUB"  />  Certificates HUB</h1>
+							<p>Simple tool to issue manage and claim certificates — non-transferable tokens (NTT) <br />
+							designed by <a href="https://cryptolions.io/">CryptoLions</a> powered by <a href="https://simpleassets.io/">SimpleAssets</a>.</p>
+						</div>
+				
+				
+				</div>
+			</div>
+		</div>	
+		<!-- Modal Page -->
+		
+		<div class="modal hide fade" id="modalWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalWindow_title"></h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="modalWindow_body"></div>
+					<div class="modal-footer" id="modalWindow_footer">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<!-- Page Content -->
+		<div id="defaultPage" >		
+			<div class="container">
+			  <div class="card border-0 shadow my-5" style="background-color: #fff" >
+				<div class="card-body p-5" id="defaultBlock_content">
+
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		
+		<!-- Home Content -->
+		<div id="HomePage" >
+			<div class="container" >
+			  <div class="card border-0 shadow my-5" style="background-color: #fff">
+				<div class="card-body p-5">
+
+						<h1 class="font-weight-light">Certificates HUB</h1>
+						<BR>
+						<p class='lead'> Welcome... Text on landing page which describe project ... Demo Text: A certification is a third-party attestation of an individual's level of knowledge or proficiency in a certain industry or profession. 
+						   			They are granted by authorities in the field, such as professional societies and universities, or by private certificate-granting agencies. Most certifications are time-limited; some expire after a period of time (e.g., the lifetime of a product that required certification for use), while others can be renewed indefinitely as long as certain requirements are met. Renewal usually requires ongoing education to remain up-to-date on advancements in the field, evidenced by earning the specified number of continuing education credits (CECs), or continuing education units (CEUs), from approved professional development courses.</p> 
+				</div>
+			  </div>
+			  
+			   <div class="card border-0 shadow my-5" style="background-color: #fff">
+				<div class="card-body p-5">
+
+						<h1 class="font-weight-light">My Certificates</h1>
+						<BR>
+						<div class="bg-warning" id="HomePage_MyCerts_pending">
+							<h3>Pending claim Certificates</h3>
+							<div id="HomePage_MyCerts_pending_data">
+								<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
+							</div>
+						</div>
+						
+						<div id="HomePage_MyCerts">
+							
+							<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>
+
+						</div>
+						<center><button class="btn btn-lg btn-primary" type="button" id="HomePage_MyCerts_more" value="" >Load More</button></center>
+				</div>
+			  </div>
+			  
+			</div>
+		</div>
+				
+
+
+		<!-- Reg Issuer -->
+
+		<div id="issuerRegPage" >
+			<div class="container" >
+			  <div class="card border-0 shadow my-5" style="background-color: #fff">
+				<div class="card-body p-5">
+
+					<div id="issuerRegInfo">
+
+					
+					
+						<div id="issuerView" class="card" style="width: 18rem;">
+							<img class="card-img-top"  id="issuerView_logo" src="" alt="">
+							<div class="card-body">
+								<h5 class="card-title"  id="issuerView_name"></h5>
+								
+								<p class="card-text" id="issuerView_info" > </p>
+								<small>Type of Certificates: </small><p class="card-text" id="issuerView_cats" > </p>
+								<p class="card-text"><a href="" id="issuerView_url" > </a></p>
+								
+								
+								<a href="#" id="btn_regIssuer_edit" class="btn btn-primary">Edit</a> <!--a href="#" id="btn_regIssuer_remove" class="btn btn-danger">Remove</a-->
+							</div>
+						</div>
+
+					</div>
+				
+					<div id="issuerRegPageForm">
+						<h1 class="font-weight-light">Register as Issuer</h1>
+					
+					  
+						  <form>
+							<div class="form-group">
+								<label for="inp_regI_institution">Institution: </label>
+								<input type="text" class="form-control form-control-lg" id="inp_regI_institution" aria-describedby="inp_regI_institution" value="" >
+								<div class="valid-feedback" id="inp_regI_institution_fb">  Looks good! </div>
+							</div>
+							
+							<div class="form-group">
+								<label for="inp_regI_logourl">Logo image url: </label>
+								<input type="text" class="form-control form-control-lg" id="inp_regI_logourl" aria-describedby="inp_regI_logourl" value="" >
+								<div class="valid-feedback" id="inp_regI_logourl_fb">  Looks good! </div>
+							</div>
+							
+							<div class="form-group">
+								<label for="inp_regI_category">Type of Certificates: </label>
+								<input type="text" class="form-control form-control-lg" id="inp_regI_category" aria-describedby="inp_regI_category">
+								<small class="form-text text-muted">diploma, license, certificate, etc (a-z.1-5 symbols only, max 12 length)</small>
+								<div class="valid-feedback" id="inp_regI_category_fb">  Looks good! </div>
+							</div>
+							
+							<div class="form-group">
+								<label for="inp_regI_website">Website: </label>
+								<input type="text" class="form-control form-control-lg" id="inp_regI_website" aria-describedby="inp_regI_website">
+								<div class="valid-feedback" id="inp_regI_website_fb">  Looks good! </div>
+							</div>
+							
+							
+							<div class="form-group">
+								<label for="inp_regI_info">Additional Info: </label>
+								<textarea class="form-control" id="inp_regI_info" rows="4"></textarea>
+							</div>
+							
+							<button type="submit" class="btn btn-lg btn-success" id="btn_regIssuer" >Submit</button>
+							
+						</form>
+
+
+					</div>
+
+				</div>
+			  </div>
+			</div>
+		</div>
+
+		
+		
+		<!-- Issue Certificate -->
+
+		<div id="issueCertPage" >
+			<div class="container" >
+			  <div class="card border-0 shadow my-5" style="background-color: #fff">
+				<div class="card-body p-5">
+
+						<h1 class="font-weight-light">Issue Certificate </h1>
+						<BR>
+					  
+						  <form class="needs-validation" id="issueCert_form" novalidate>
+							<div class="form-group">
+								 <label for="issueCert_institution">Institution: </label> <span id="issueCert_institution" class="font-weight-bold text-muted"> .....</span>															
+							</div>
+
+							<div class="form-group">
+								 <label for="issueCert_type">Type: </label> <span id="issueCert_type" class="font-weight-bold text-muted "> .....</span>															
+							</div>
+
+							
+							<div class="form-group">
+								<label for="inp_issueCert_name">Name of certificate <small class="text-muted">(optional)</small>: </label> 
+								<input type="text" class="form-control form-control-lg" id="inp_issueCert_name" aria-describedby="inp_issueCert_name" value="" >
+								<div class="invalid-feedback" id="inp_issueCert_name_fb">  Looks good! </div>
+								
+							</div>
+							
+							<div class="form-group ">
+								<label for="inp_issueCert_img">Image Url <small class="text-muted">(optional)</small>: </label>
+								<input type="text" class="form-control form-control-lg" id="inp_issueCert_img" aria-describedby="inp_issueCert_img">
+								<div class="invalid-feedback" id="inp_issueCert_img_fb">  Looks good! </div>
+							</div>
+								
+							<BR>
+							<div class="form-group  shadow p-3 mb-5 bg-white rounded">
+								<label for="inp_regI_website">Fixed Data: </label>
+							
+								<!--div class="col-md-8 shadow p-3 mb-5 bg-white rounded">Regular shadow</div-->
+							
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="inp_issueCert_fixedadd_key">field name: </label>						
+									</div>
+									<div class="form-group col-md-4">
+										<label for="inp_issueCert_fixedadd_val">data: </label>									
+									</div>
+									<div class="form-group col-md-1 align-self-center">																			
+									</div>
+								</div>	
+
+								
+								<div class="form-row">									
+									<div class="form-group col-md-4">									
+										<input type="text" class="form-control form-control-lg" id="inp_issueCert_fixedadd_key" aria-describedby="inp_issueCert_fixedadd_key">
+										<div class="valid-feedback" id="inp_issueCert_fixedadd_key_fb">  Looks good! </div>
+									</div>
+									<div class="form-group col-md-4">									
+										<input type="text" class="form-control form-control-lg" id="inp_issueCert_fixedadd_val" aria-describedby="inp_issueCert_fixedadd_val">
+										<div class="valid-feedback" id="inp_issueCert_fixedadd_val_fb">  Looks good! </div>
+									</div>
+									<div class="form-group col-md-1 align-self-center">									
+										<button type="button" class="btn btn-success" id="inp_issueCert_fixedadd" >+</button>
+									</div>
+								</div>
+								
+								<div id="idata">									
+								
+								</div>
+							
+							</div>
+							
+							<div class="form-group  shadow p-3 mb-5 bg-white rounded">
+								<label for="inp_regI_website">Mutable Data: </label>
+							
+								<!--div class="col-md-8 shadow p-3 mb-5 bg-white rounded">Regular shadow</div-->
+							
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<label for="inp_issueCert_fixedadd_key">field name: </label>						
+									</div>
+									<div class="form-group col-md-4">
+										<label for="inp_issueCert_fixedadd_val">data: </label>									
+									</div>
+									<div class="form-group col-md-1 align-self-center">																			
+									</div>
+								</div>	
+
+
+								<div class="form-row">									
+									<div class="form-group col-md-4">									
+										<input type="text" class="form-control form-control-lg" id="inp_issueCert_mutableadd_key" aria-describedby="inp_issueCert_mutableadd_key">
+										<div class="valid-feedback" id="inp_issueCert_mutableadd_key_fb">  Looks good! </div>
+									</div>
+									<div class="form-group col-md-4">									
+										<input type="text" class="form-control form-control-lg" id="inp_issueCert_mutableadd_val" aria-describedby="inp_issueCert_mutableadd_val">
+										<div class="valid-feedback" id="inp_issueCert_mutableadd_val_fb">  Looks good! </div>
+									</div>
+									<div class="form-group col-md-1 align-self-center">									
+										<button type="button" class="btn btn-success" id="inp_issueCert_mutabledadd" >+</button>
+									</div>
+								</div>
+								<div id="mdata">									
+								
+								</div>							
+							</div>
+							
+
+							<div class="form-row">
+								<div class="form-group col-md-4">
+									<label for="inp_issueCert_owner"><b>Receiver of Certificate *:</b> </label>
+									<input type="text" class="form-control form-control-lg" id="inp_issueCert_owner" aria-describedby="inp_issueCert_owner" required>						
+									<div class="valid-feedback" id="inp_issueCert_owner_fb">  Looks good! </div>
+								</div>
+								<div class="form-group col-md-1">
+								</div>
+								<div class="form-group col-md-4">
+									<label for="requireclaim0"><b>Issue Type:</b> </label>
+									<div class="custom-control custom-radio">
+										<input type="radio" class="custom-control-input" id="requireclaim0" name="inp_issueCert_issuetype" value="0" required checked >
+										<label class="custom-control-label" for="requireclaim0">Transfer to receiver</label>
+										<div class="valid-feedback" id="inp_issueCert_issuetype_fb">  Looks good! </div>
+									</div>
+									<div class="custom-control custom-radio mb-3">
+										<input type="radio" class="custom-control-input" id="requireclaim1" name="inp_issueCert_issuetype"  value="1" required>
+										<label class="custom-control-label" for="requireclaim1">Offer to claim by receiver</label>
+									
+									</div>
+								</div>
+							</div>
+
+							<div class="alert alert-danger alert-dismissible fade show" id="inp_issueCert_alertMsg" role="alert">								
+								
+							</div>
+
+							<button type="submit" class="btn btn-success btn-lg" id="btn_issueCert" >Create & Issue</button>
+							<button type="submit" class="btn btn-outline-warning  btn-lg float-right" id="btn_issueCert_clear" >Clear Form</button>
+						</form>
+
+
+					</div>
+
+				</div>
+			  </div>
+			</div>
+		
+	
+		<!-- Certificate Search-->
+		
+		<div id="certSearchPage" >
+			
+			<div class="container " >
+				<div class=" shadow p-5 mb-5 bg-white rounded" id="certSearchBlock">
+					<h1 class="font-weight-light">Search Certificate </h1>
+					<form>
+					<div class="form-group">
+						 
+						 <label for="CertViewBlock_search_input">Enter account to get available certificates: </label> 
+						<div class="input-group mb-3">
+							
+							<input type="text" id="CertViewBlock_search_input" class="form-control form-control-lg" placeholder="account name" aria-label="wax account name" aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-lg btn-success" type="button" id="btn_SeatchPage_search">Search</button>
+							</div>
+						</div>
+					</div>
+					</form>
+						<BR>
+						<div class="bg-warning" id="SeatchPage_Certs_data_pending">
+							<h3>Pending claim Certificates</h3>
+							<div id="SeatchPage_Certs_data_pending_data">
+								
+							</div>
+						</div>
+						<div id="SeatchPage_Certs_data">				
+							
+						</div>
+						<center><button class="btn btn-lg btn-primary" type="button" id="SeatchPage_Certs_data_more" value="" >Load More</button></center>
+				</div>
+			</div>
+		</div>
+			
+			
+		<!-- Certificate View-->
+		
+		<div id="certViewPage" >
+			<div class="container" id="">
+				<div class=" shadow p-5 mb-5 bg-white rounded" id="CertViewBlock">
+					<center><h4>CERTIFICATE ISSUED TO: <span  id="CertViewBlock_owner" >  </span> <span id="CertViewBlock_notClaimed" class="badge badge-warning">Not claimed yet</span>
+					<button type="button" class="btn btn-success btn-lg no-print" id="btn_CertViewBlock_claim" >Claim</button>
+					<button type="button" class="btn btn-danger btn-lg no-print" id="btn_CertViewBlock_offerCancel" >Burn</button>
+					<button type="button" class="btn btn-outline-primary no-print" id="btn_CertViewBlock_print" >Print</button></h4></center>
+					
+					<div class="row py-5">
+						<div class="col-md-8 px-5">
+							
+							<dl class="row">
+								<dt class="col-sm-5">Institution:</dt>
+								<dd class="col-sm-7"><span  id="CertViewBlock_name" > </span> [ <a href="" id="CertViewBlock_url" ></a> ]</dd>
+								
+								<dt class="col-sm-5">Type of Certificate:</dt>
+								<dd class="col-sm-7"><span id="CertViewBlock_cat" > </span></dd>
+								
+								<dt class="col-sm-5">Issuer:</dt>
+								<dd class="col-sm-7"><span  id="CertViewBlock_issuer" > </span></dd>
+
+							</dl>
+							<BR>
+							<div class="row shadow p-3 mb-5 bg-white rounded">
+								<h5 class="text-muted">Fixed Data</h5>
+								
+								<dl class="container row" id="CertViewBlock_fixed">
+								</dl>
+								
+							</div>	
+							<div class="row shadow p-3 mb-5 bg-white rounded">
+								<h5 class="text-muted">Mutable Data</h5>
+								<dl class="container row" id="CertViewBlock_mutable" >
+															
+								</dl>
+								
+							</div>	
+							<!--p>Issuer Info: <span id="" > Info text ... </span> </p-->
+							<button type="button" class="btn btn-danger no-print" id="btn_CertViewBlock_burn" value="" >Burn</button>
+						</div>
+						<!-- align-self-center text-right -->
+						
+						<div class="col-md-4 text-center ">
+							<div id="CertView_qr"></div>
+							<BR><BR><BR>
+							<span  id="" ><img class="img-fluid" id="CertView_img" src="" alt=""> </span>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
