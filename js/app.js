@@ -295,7 +295,9 @@ function showLicenses_loadMore(){
 
 function showLicenses_OneCert( data ){
 
-	var urlFullView = SITEURL + "#certView/" + cert.issuer + "/" + data.owner + "/" + cert.id;;
+	var url =  "#certView/" + cert.issuer + "/" + data.owner + "/" + cert.id;;
+
+	var urlFullView = SITEURL + url;
 	
 	certName = "<BR>";
 	certImg = "images/noimage.jpg";
@@ -318,7 +320,7 @@ function showLicenses_OneCert( data ){
 				<img style="max-width:90%; max-height:80%" src="' + certImg + '" class="" alt="' + data.id + '" title="' +  certName +'">\
 			</div>\
 			<div class="col-md-8 align-middle">\
-				<h5 class="mt-0"><a id="HomePage_MyCert_' + data.id + '_link" href="' + urlFullView + '"># ' + data.id + '</a>   ' + badge_awating_claim + '  </h5>\
+				<h5 class="mt-0"><a id="HomePage_MyCert_' + data.id + '_link" href="' + url + '"># ' + data.id + '</a>   ' + badge_awating_claim + '  </h5>\
 				'+ certName +'\
 				Institution: ' + escapeHtml(data.institution) + ' [ type: ' + escapeHtml(data.category)+ ' ]<BR>\
 				Issuer: ' + data.issuer + '<BR>\
