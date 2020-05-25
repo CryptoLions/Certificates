@@ -27,7 +27,12 @@ function processError(error_){
 function regIssuer(){
 	//console.log("OK");
 	data = regIssuer_validate();
-	if (!data) return false;
+	if (!data) {
+	    console.log("here");
+	    return false;
+
+
+}
 	
 	//console.log(data);
 	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
@@ -38,13 +43,18 @@ function regIssuer(){
 			processError(error);
 		});
 	});
+	return false;
 
 }
 
 function updIssuer(){
 	//console.log("OK");
 	data = regIssuer_validate();
-	if (!data) return false;
+
+	if (!data) {
+	    console.log("here2");
+	    return false;
+	}
 	
 	console.log(data);
 	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
@@ -54,7 +64,7 @@ function updIssuer(){
 		    processError(error);
 		});
 	});
-
+	return false;
 }
 
 
@@ -69,6 +79,8 @@ function rmIssuer(){
 		    processError(error);
 		});
 	});
+
+	return false;
 
 }
 
@@ -122,6 +134,7 @@ function claimCertificate_action(){
 		    processError(error);
 		});
 	});
+	return false;
 }
 
 
@@ -138,6 +151,7 @@ function burnCertificate_action(){
 			showErrorMessage(error.message, "topErrorMessage");
 		});
 	});
+	return false;
 }
 
 
