@@ -33,7 +33,7 @@ var account;
 var lastPage;
 var dappinfo;
 var myoffers = {};
-var pageTitle = "Certificates HUB (powered by SimpleAssets)";
+var pageTitle = "Certificates HUB ";
 
 
 var spinner = '<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>';
@@ -561,6 +561,11 @@ async function certViewPage(data){
 			$("#CertViewBlock_cat").html(escapeHtml(certificate.rows[0].category));
 			$("#CertViewBlock_name").html(escapeHtml(issuer.dappinfo.name));  //regautor table
 			$("#CertViewBlock_url").attr("href", issuer.dappinfo.url);
+			$("#CertViewBlock_url").html(issuer.dappinfo.url);
+			$("#CertViewBlock_logo").attr("src", issuer.dappinfo.logo);
+			$("#CertViewBlock_issuerinfo").html(issuer.dappinfo.info);
+			
+			
 			$("#CertViewBlock_issuer").html(certificate.rows[0].author);
 
 			

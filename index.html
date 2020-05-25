@@ -5,11 +5,11 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 		<meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,user-scalable=no" />
-		<meta name="description" content="Simple tool to issue manage and claim certificates — non-transferable tokens (NTT) designed by CryptoLions powered by SimpleAssets.">
+		<meta name="description" content="Easy, Verifiable, Blockchain-Based Certificates">
 		<meta name="author" content="CryptoLions.io">
 		<link rel="icon" href="images/favicon.png">
 	
-		<title>Certificates HUB (powered by SimpleAssets)</title>
+		<title>Certificates HUB - Easy, Verifiable, Blockchain-Based Certificates</title>
 		
 		
 		<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -72,12 +72,7 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item" href="#">Jungle</a>
-						<a class="dropdown-item disabled" href="#">WAX</a>
 						<a class="dropdown-item disabled" href="#">EOS</a>
-						<a class="dropdown-item disabled" href="#">XEC</a>
-						<a class="dropdown-item disabled" href="#">PROTON</a>
-						<a class="dropdown-item disabled" href="#">TELOS</a>
-						<a class="dropdown-item disabled" href="#">MEETONE</a>
 						</div>
 					</li>
 	  
@@ -100,15 +95,15 @@
 				<div class="col-md-12">
 		 
 				<div class="alert alert-danger fixed-top" id="topErrorMessage" role="alert">
-					This is a danger alert—check it out!
+					
 				</div>		
 				<!-- top_vid -->
 				
 						<div id="TopText">
 							<BR>
 							<h1><img width="64px" src="images/logo_128.png" alt="Certificates HUB" title="Certificates HUB"  />  Certificates HUB</h1>
-							<p>Simple tool to issue manage and claim certificates — non-transferable tokens (NTT) <br />
-							designed by <a href="https://cryptolions.io/">CryptoLions</a> powered by <a href="https://simpleassets.io/">SimpleAssets</a>.</p>
+							<p>Easy, Verifiable, Blockchain-Based Certificates </p>
+							 <!-- designed by <a href="https://cryptolions.io/">CryptoLions</a> powered by <a href="https://simpleassets.io/">SimpleAssets</a>.</p-->
 						</div>
 				
 				
@@ -154,10 +149,49 @@
 			  <div class="card border-0 shadow my-5" style="background-color: #fff">
 				<div class="card-body p-5">
 
-						<h1 class="font-weight-light">Certificates HUB</h1>
+						<h1 class="font-weight-light">FAQ</h1>
 						<BR>
-						<p class='lead'> Welcome... Text on landing page which describe project ... Demo Text: A certification is a third-party attestation of an individual's level of knowledge or proficiency in a certain industry or profession. 
-						   			They are granted by authorities in the field, such as professional societies and universities, or by private certificate-granting agencies. Most certifications are time-limited; some expire after a period of time (e.g., the lifetime of a product that required certification for use), while others can be renewed indefinitely as long as certain requirements are met. Renewal usually requires ongoing education to remain up-to-date on advancements in the field, evidenced by earning the specified number of continuing education credits (CECs), or continuing education units (CEUs), from approved professional development courses.</p> 
+						
+						
+						<!-- FAQ ---->
+									
+						<h5>I am a credential authority.  How do I create and issue certificates?<h5>
+						
+						<p class='lead'>
+							First <a href="#regIssuer">Register as an issuer</a>.  (Be sure to include information that can be used to verify your identity.)
+							<BR>
+							Then <a href="#certIssue"> Certificates</a>.  (You'll need to know the EOS (Jungle) account name of the recipient.)
+						</p>
+
+						<BR>
+						<h5>I have a certificate.  How do I show it to people? <h5>
+						
+						<p class='lead'>
+							Log in and see your certificates listed on the Home Page.  Click on the certificate of your choice.
+							<BR>
+							Pro tip:  If you know your account name and certificate id, you can also go to
+							<BR>
+							<code>https://certs.cryptolions.io/#certView/&lt;issuer account name&gt;/&lt;owner account name&gt;/&lt;certificate id&gt;</code>
+						</p>
+								
+						<BR>
+						<h5>I am reviewing a certificate, how do I ensure it's real? <h5>
+						
+						<p class='lead'>
+							Stay tuned for our blue-badge system for stronger verification. 
+							<BR>
+							In the mean time, look at the "Issuer".  An institution should disclose their "Issuer" identity on their website or social media to confirm it is theirs.
+						</p>
+
+
+						<BR>
+						<h5>Are certificates public? <h5>
+						
+						<p class='lead'>
+							Yes.  For private or sensitive data, we suggest issuers only put URL in their certificates, and keep the data off chain and control access.  You can use the certificate can send people to a portal through which they identify themselves and request access from you.
+						</p>
+						
+						
 				</div>
 			  </div>
 			  
@@ -461,13 +495,25 @@
 							
 							<dl class="row">
 								<dt class="col-sm-5">Institution:</dt>
-								<dd class="col-sm-7"><span  id="CertViewBlock_name" > </span> [ <a href="" id="CertViewBlock_url" ></a> ]</dd>
+								<dd class="col-sm-7"> </span> <span id="CertViewBlock_name" > </span> <img  width="32px" id="CertViewBlock_logo" src="" /> </dd>
+
+								<dt class="col-sm-5">Issuer:</dt>
+								<dd class="col-sm-7"><span  id="CertViewBlock_issuer" > </span></dd>
+
+								
+								<dt class="col-sm-5">Website:</dt>
+								<dd class="col-sm-7"><a href="" id="CertViewBlock_url" target="_blank" ></a> </dd>
+
+								<dt class="col-sm-5">Description:</dt>
+								<dd class="col-sm-7"><span id="CertViewBlock_issuerinfo"> </span> </dd>
+
+								
+								<dt class="col-sm-5"><BR></dt>
+								<dd class="col-sm-7"></dd>
 								
 								<dt class="col-sm-5">Type of Certificate:</dt>
 								<dd class="col-sm-7"><span id="CertViewBlock_cat" > </span></dd>
 								
-								<dt class="col-sm-5">Issuer:</dt>
-								<dd class="col-sm-7"><span  id="CertViewBlock_issuer" > </span></dd>
 
 							</dl>
 							<BR>
@@ -500,5 +546,17 @@
 				</div>
 			</div>
 		</div>
+		
+		
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3"> Made by <img src="http://cryptolions.io/assets/images/favicon.png" width="20px" /> <a href="https://cryptolions.io/"> Cryptolions.io</a>, powered by  <img src="https://simpleassets.io/assets/img/logos/favicon.png" width="20px" /> <a href="https://simpleassets.io/"> SimpleAssets</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 	</body>
 </html>
