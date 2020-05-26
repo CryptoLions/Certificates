@@ -256,7 +256,11 @@ async function showLicenses(scope, lBound, outputid ){
 			}
 			
 			cert.id = mycerts.rows[c].id;
-			cert.institution = knownAuthor[mycerts.rows[c].author].dappinfo.name;
+			
+			cert.institution = "-";
+			if (knownAuthor[mycerts.rows[c].author].dappinfo)
+				cert.institution = knownAuthor[mycerts.rows[c].author].dappinfo.name;
+			
 			cert.issuer = mycerts.rows[c].author;	
 			cert.category = mycerts.rows[c].category;
 			cert.owner = scope
@@ -558,16 +562,36 @@ async function certViewPage(data){
 					$("#btn_CertViewBlock_burn").show();
 				}
 			}
-			$("#CertViewBlock_cat").html(escapeHtml(certificate.rows[0].category));
-			$("#CertViewBlock_name").html(escapeHtml(issuer.dappinfo.name));  //regautor table
-			$("#CertViewBlock_url").attr("href", issuer.dappinfo.url);
-			$("#CertViewBlock_url").html(issuer.dappinfo.url);
-			$("#CertViewBlock_logo").attr("src", issuer.dappinfo.logo);
-			$("#CertViewBlock_issuerinfo").html(issuer.dappinfo.info);
+			
+			var issuer_name = "-";
+			var issuer_cat = "-" ;
+			var issuer_url = "-" ;
+			var issuer_logo = "-" ;
+			var issuer_issuerinfo = "-" ;
+			
+			if (issuer.dappinfo && issuer.dappinfo.category)
+				issuer_cat = escapeHtml(certificate.rows[0].category);
+			if (issuer.dappinfo && issuer.dappinfo.name)
+				issuer_name = escapeHtml(issuer.dappinfo.name)
+			if (issuer.dappinfo && issuer.dappinfo.url)
+				issuer_url = escapeHtml(issuer.dappinfo.url)
+			if (issuer.dappinfo && issuer.dappinfo.logo)
+				issuer_logo = escapeHtml(issuer.dappinfo.logo)
+			if (issuer.dappinfo && issuer.dappinfo.info)
+				issuer_issuerinfo = escapeHtml(issuer.dappinfo.info)
+
+			
+			$("#CertViewBlock_cat").html(issuer_cat);
+			
+			$("#CertViewBlock_name").html(issuer_name);  //regautor table
+			$("#CertViewBlock_url").attr("href", issuer_url);
+			$("#CertViewBlock_url").html(issuer_url);
+			$("#CertViewBlock_logo").attr("src", issuer_logo);
+			$("#CertViewBlock_issuerinfo").html(issuer_issuerinfo);
 			
 			
 			$("#CertViewBlock_issuer").html(certificate.rows[0].author);
-
+		
 			
 			parma_row = function(key, val) {
 				return '<dt class="col-sm-5">' + key + ':</dt>\
