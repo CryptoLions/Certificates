@@ -377,7 +377,7 @@ async function regIssuerPage(){
 		showPage("#issuerRegPage");
 	} else {
 		$("#TopText").hide();
-		showDefPage("Register as Issuer", "Neet to be loged in...", "") ;					
+		showDefPage("Register as Issuer", "Please Log in . . .", "") ;					
 	}
 }
 
@@ -401,7 +401,7 @@ async function certIssuePage(){
 		showPage("#issueCertPage");
 	} else {
 		$("#TopText").hide();
-		showDefPage("Issue Certificate", "Neet to be loged in...", "") ;					
+		showDefPage("Issue Certificate", "Please Log in . . .", "") ;					
 		return;
 	}
 	
