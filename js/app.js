@@ -33,7 +33,7 @@ var account;
 var lastPage;
 var dappinfo;
 var myoffers = {};
-var pageTitle = "Certificates HUB ";
+var pageTitle = "Kyros Certificate HUB - democratizing authority ";
 
 
 var spinner = '<div class="spinner-border text-success" role="status"> <span class="sr-only">Loading...</span></div>';
