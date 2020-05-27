@@ -569,24 +569,29 @@ async function certViewPage(data){
 			var issuer_logo = "-" ;
 			var issuer_issuerinfo = "-" ;
 			
-			if (issuer.dappinfo && issuer.dappinfo.category)
-				issuer_cat = escapeHtml(certificate.rows[0].category);
+
 			if (issuer.dappinfo && issuer.dappinfo.name)
 				issuer_name = escapeHtml(issuer.dappinfo.name)
 			if (issuer.dappinfo && issuer.dappinfo.url)
 				issuer_url = escapeHtml(issuer.dappinfo.url)
-			if (issuer.dappinfo && issuer.dappinfo.logo)
-				issuer_logo = escapeHtml(issuer.dappinfo.logo)
+			
 			if (issuer.dappinfo && issuer.dappinfo.info)
 				issuer_issuerinfo = escapeHtml(issuer.dappinfo.info)
 
 			
-			$("#CertViewBlock_cat").html(issuer_cat);
+			$("#CertViewBlock_cat").html(escapeHtml(certificate.rows[0].category));
 			
 			$("#CertViewBlock_name").html(issuer_name);  //regautor table
-			$("#CertViewBlock_url").attr("href", issuer_url);
+			$("#CertViewBlcock_url").attr("href", issuer_url);
 			$("#CertViewBlock_url").html(issuer_url);
-			$("#CertViewBlock_logo").attr("src", issuer_logo);
+			
+			if ( issuer.dappinfo && validURL(issuer.dappinfo.logo)) {
+				$("#CertViewBlock_logo").show();
+				$("#CertViewBlock_logo").attr("src", issuer.dappinfo.logo);
+			} else {
+				$("#CertViewBlock_logo").hide();
+			}
+			
 			$("#CertViewBlock_issuerinfo").html(issuer_issuerinfo);
 			
 			
