@@ -59,11 +59,11 @@ function init(){
 
 		});
 	} catch (error) {
-		//console.log(error);
 		showErrorMessage(error, "topErrorMessage");
 	}
 
 
+	$(".chain_name").html("[ "+CHAIN.name+" ]");
 
 	ProcessLocation();
 	mainEvents();
@@ -180,7 +180,6 @@ async function HomePage(){
 		myoffers_ = await getTable2 ("simpleassets", "simpleassets", "nttoffers", 2, "owner", "i64", account.name, account.name, 200);
 		for (var i in myoffers_.rows)
 			myoffers[myoffers_.rows[i].assetid] = myoffers_.rows[i];
-		console.log(myoffers);
 		
 		await showLicenses (account.name, MyAssetsLoadMore, "HomePage_MyCerts");
 		
@@ -199,8 +198,6 @@ async function showClaims( offeredto, outputid ){
 	$("#" + outputid + "_pending_data").html("");
 	var myclaims = await getTable2 ("simpleassets", "simpleassets", "nttoffers", 3, "offeredto", "i64", offeredto, offeredto, 20);
 	
-	//console.log(myclaims);
-	
 	if (myclaims && myclaims.rows && myclaims.rows.length > 0){
 		$("#" + outputid + "_pending").show();
 	
@@ -214,11 +211,6 @@ async function showClaims( offeredto, outputid ){
 			cert.category = "..";
 			cert.owner = offeredto;
 
-			//var cert_info_ = await getTable2 ("simpleassets", myclaims.rows[o_].owner, "snttassets", 1, "",  "i64", myclaims.rows[o_].assetid, "", 1);
-			//if (cert_info_ && cert_info_.rows && cert_info_.rows[0]){
-			//	console.log(cert_info_.rows[0])
-			//}
-			
 			
 			$("#" + outputid + "_pending_data").append(showLicenses_OneCert( cert ));
 			
@@ -232,13 +224,9 @@ async function showClaims( offeredto, outputid ){
 	
 	
 async function showLicenses(scope, lBound, outputid ){
-
-		
 		$("#" + outputid).show();	
-		
-		
+
 		var mycerts = await getTable2 ("simpleassets", scope, "snttassets", 1, "",  "i64", lBound, "", 5);
-		//console.log(mycerts);
 			
 		for (var c in mycerts.rows) {
 			
@@ -263,14 +251,13 @@ async function showLicenses(scope, lBound, outputid ){
 			
 			cert.issuer = mycerts.rows[c].author;	
 			cert.category = mycerts.rows[c].category;
-			cert.owner = scope
+			cert.owner = scope;
 			
 			$("#" + outputid).append(showLicenses_OneCert( cert ));
 			
 			qr_link = SITEURL + "#certView/" + cert.issuer + "/" + scope + "/" + cert.id;
 			
 			$("#HomePage_MyCert_qr_" + cert.id).qrcode({width: 256, height: 256, text: qr_link});
-			//console.log(mycerts.rows[c]);
 			
 			//$("#HomePage_MyCert_" + cert.id).click( function () { window.open($("#"+this.id+"_link").attr('href'), "_blank", ""); } )
 			$("#HomePage_MyCert_" + cert.id).click( function () { window.location = $("#"+this.id+"_link").attr('href');} )
@@ -289,13 +276,6 @@ async function showLicenses(scope, lBound, outputid ){
 			$("#" + outputid + "_more").hide();
 		}
 }
-/*
-function showLicenses_loadMore(){
-	//console.log($("#HomePage_MyCerts_more").val())
-	showLicenses($("#HomePage_MyCerts_more").val());
-}
-*/
-
 
 function showLicenses_OneCert( data ){
 
@@ -347,10 +327,7 @@ async function regIssuerPage(){
 	
 	if (account) {
 		var authorRes = await getTable ("simpleassets", "simpleassets", "authors", 1, "", "i64", account.name, account.name, 1);
-		//console.log(authorRes);
-		
-		//$("#inp_regI_institution").val(account.name);
-		//console.log(authorRes.rows.length);
+
 		if (authorRes.rows.length > 0) {
 			$("#btn_regIssuer").unbind();
 			$("#btn_regIssuer").click(updIssuer);	 //rmIssuer
@@ -627,7 +604,6 @@ async function certViewPage(data){
 				} else {
 					mdata_res += parma_row(key, escapeHtml(mdata[key]));
 				}
-				//console.log(key)				
 			}
 			
 			if (noImage) 
@@ -714,8 +690,6 @@ async function getTable2(contract, scope, table, index_position, table_key, key_
 				limit: limit
 		}
 		
-		
-		
 		try {
 			let res_ =  await makeRequest("POST", api_url + "/v1/chain/get_table_rows", JSON.stringify(tableOptions));
 			res = JSON.parse(res_);
@@ -729,17 +703,12 @@ async function getTable2(contract, scope, table, index_position, table_key, key_
 }
 
 
-
-
 function onUserLogin(){
 	$("#username").html(account.name + ",");
 
 	ProcessLocation();
 }
 	
-
-
-
 
 function scatterLogin(){
 	scatter.getIdentity({accounts: [network]}).then(function(identity) {

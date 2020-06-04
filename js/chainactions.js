@@ -12,32 +12,31 @@
 //*****************************************************************/
 function processError(error_){
 
-	var error = JSON.parse(error_);
-	console.error(error);
-
+	if (typeof error_ == 'object'){
+		var error = error_;
+	} else {
+		var error = JSON.parse(error_);	
+	}
+	
+	
 	var errmsg = ""
 	if (error.message)
 	    errmsg = error.message
-	if (error.error.details[0].message)
+	if (error.error && error.error.details && error.error.details[0].message)
 	    errmsg = error.error.details[0].message;
 	
 	showErrorMessage(errmsg, "topErrorMessage");
+	
 }
 
 function regIssuer(){
-	//console.log("OK");
 	data = regIssuer_validate();
 	if (!data) {
-	    console.log("here");
 	    return false;
-
-
-}
+	}
 	
-	//console.log(data);
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.authorreg(account.name, JSON.stringify(data), "{}", "{}", { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
-			//console.log("OK");
 			ProcessLocation();
 		}).catch(function(error) {
 			processError(error);
@@ -48,16 +47,13 @@ function regIssuer(){
 }
 
 function updIssuer(){
-	//console.log("OK");
 	data = regIssuer_validate();
 
 	if (!data) {
-	    console.log("here2");
 	    return false;
 	}
 	
-	console.log(data);
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.authorupdate(account.name, JSON.stringify(data), "{}", "{}", { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
 			ProcessLocation();
 		}).catch(function(error) {
@@ -71,9 +67,8 @@ function updIssuer(){
 
 function rmIssuer(){
 
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.authorupdate(account.name, "", "", "", { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
-			//console.log("OK");
 			ProcessLocation();
 		}).catch(function(error) {
 		    processError(error);
@@ -91,7 +86,7 @@ function issueCertificate(){
 	
 	if ( !data ) return false;
 	
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.createntt(account.name, data.category, data.owner, JSON.stringify(data.idata), JSON.stringify(data.mdata), data.requireClaim, { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
 			var assetID;
 			var traces = res.processed.action_traces[0].inline_traces
@@ -99,11 +94,7 @@ function issueCertificate(){
 				if (traces[i].act.name == "createnttlog" ) {
 					assetID = traces[i].act.data.assetid;
 				}
-				
 			}
-			
-			console.log(res);
-			
 			if (data.requireClaim){				
 				window.open("#certView/" + account.name + "/" + account.name + "/"+assetID, "_blank", "");
 			} else {
@@ -119,17 +110,12 @@ function issueCertificate(){
 	
 }
 
-
-
 function claimCertificate_action(){
 	
 	var assetid = $("#btn_CertViewBlock_claim").val();
-	console.log(assetid);
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.claimntt(account.name, [assetid], { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
-			//console.log("OK");
 			ProcessLocation();
-			//window.location = "#home"
 		}).catch(function(error) {
 		    processError(error);
 		});
@@ -139,12 +125,9 @@ function claimCertificate_action(){
 
 
 function burnCertificate_action(){
-	//console.log($("#btn_CertViewBlock_burn").val())
 	var assetid = $("#btn_CertViewBlock_burn").val();
-	eos.contract(CONTRACT_SA, {accounts: [network]}).then(function( contractr ){
+	eos.contract(CHAIN.saContract, {accounts: [network]}).then(function( contractr ){
 		contractr.burnntt(account.name, [assetid], "", { authorization:[`${account.name}@${account.authority}`] }).then( function(res)  {
-			//console.log("OK");
-			//ProcessLocation();
 			window.location = "#home"
 		}).catch(function(error) {
 			console.error(error);
@@ -322,7 +305,6 @@ function issueCertificate_validate_check_key( key, obj_id, data ){
 	
 	if ( key != key.replace(/[^a-zA-Z0-9_-]/g,'') || key.length > 32 ){
 		isValid = false;
-		console.log(obj_id);
 		setFeedBack(obj_id, "No spaces, max 32, Chars allowed: A-Z a-z 0-9 _ - ", 1)	
 	} else if ( data.idata.hasOwnProperty(key) || data.mdata.hasOwnProperty(key) ){
 		isValid = false;

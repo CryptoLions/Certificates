@@ -56,7 +56,6 @@ body {
 	display: none;
 }
 
-
 #certViewPage{
 	display: none;
 }
@@ -101,8 +100,11 @@ body {
 }
 
 .navbar .active {
-       background-color: darkred;
+	background-color: darkred;
 }
 
 
-
+.chain_name {
+	color: #eee;
+	margin-top: -30px;
+}
