@@ -28,6 +28,11 @@ switch (subdomains[0]) {
 	case "eos": 
 		selectedChain = "eos";
 		break;
+		
+	case "xec": 
+		selectedChain = "xec";
+		break;
+		
 }
 
 
@@ -97,6 +102,36 @@ var CHAINS = {
 			V2: [
 				{host: "https://junglehistory.cryptolions.io", active: 1},
 				{host: "https://jungle.eossweden.org", active: 1}
+			]
+		},
+		
+		xec: {
+			name : "XEC",
+			chainId: "f778f7d2f124b110e0a71245b310c1d0ac1a0edd21f131c5ecb2e2bc03e8fe2e",
+			saContract: "simpleassets",
+			expireInSeconds: 20, 
+			chainHost: 0,
+			
+			hosts: [
+			  {
+				"protocol": "https",
+				"host": "api.xec.cryptolions.io",
+				"port": 443,
+				"active": 1,
+				"time": 0.065343
+			  },
+			  {
+				"protocol": "https",
+				"host": "europe.eos.barcelona",
+				"port": 443,
+				"active": 1,
+				"time": 0.151274
+			  }
+			],
+
+			V2: [
+			{host: "https://junglehistory.cryptolions.io", active: 1},
+			{host: "https://jungle.eossweden.org", active: 1}
 			]
 		}
 }
