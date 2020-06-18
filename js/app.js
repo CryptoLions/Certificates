@@ -64,7 +64,8 @@ function init(){
 
 
 	$(".chain_name").html("[ "+CHAIN.name+" ]");
-
+	$("#navbarDropdownMenuLink").html(CHAIN.name);
+	
 	ProcessLocation();
 	mainEvents();
 
